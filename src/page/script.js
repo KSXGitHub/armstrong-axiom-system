@@ -72,7 +72,7 @@ inputRelationshipAddConfirm.addEventListener('click', tryAlert(() => {
 }), false)
 
 inputRelationshipDeleteConfirm.addEventListener('click', tryAlert(() => {
-  relationship.delete(...inputRelationshipTextBox.value.trim().split(', '))
+  relationship.delete(...inputRelationshipTextBox.value.trim().split(','))
   inputRelationshipTextBox.value = ''
   displayRelationship(outputRelationshipPanel)
 }), false)

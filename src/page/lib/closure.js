@@ -9,15 +9,14 @@ const closure = (value, relationship) => {
   while (loop) {
     for (const {from, to} of relationship) {
       let subset = true
-      const list = from.split(SPACE_REGEX)
-      for (const item of list) {
+      for (const item of from.trim().split(SPACE_REGEX)) {
         if (!result.has(item)) {
           subset = false
           break
         }
       }
       if (subset) {
-        result.add(...list)
+        result.add(...to.trim().split(SPACE_REGEX))
       } else {
         loop = false
       }
