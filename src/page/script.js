@@ -2,7 +2,7 @@
 
 const Database = require('./lib/database.js')
 const closure = require('./lib/closure.js')
-const {SPACE_REGEX} = require('./lib/regexes.js')
+const {SPACE_REGEX, COMMA_REGEX} = require('./lib/regexes.js')
 const {universe, relationship, displayUniverse, displayRelationship} = new Database()
 const {document: {documentElement}, alert} = window
 const outputPanel = documentElement.querySelector('.output-panel')
@@ -66,13 +66,13 @@ inputUniverseClearConfirm.addEventListener('click', () => {
 }, false)
 
 inputRelationshipAddConfirm.addEventListener('click', tryAlert(() => {
-  relationship.add(...inputRelationshipTextBox.value.trim().split(', '))
+  relationship.add(...inputRelationshipTextBox.value.trim().split(COMMA_REGEX))
   inputRelationshipTextBox.value = ''
   displayRelationship(outputRelationshipPanel)
 }), false)
 
 inputRelationshipDeleteConfirm.addEventListener('click', tryAlert(() => {
-  relationship.delete(...inputRelationshipTextBox.value.trim().split(','))
+  relationship.delete(...inputRelationshipTextBox.value.trim().split(COMMA_REGEX))
   inputRelationshipTextBox.value = ''
   displayRelationship(outputRelationshipPanel)
 }), false)

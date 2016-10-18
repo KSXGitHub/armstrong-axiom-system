@@ -30,7 +30,9 @@ class Relationship {
         return set.size
       },
       * [iterator] () {
-        yield * set
+        for (const string of set) {
+          yield Element.fromString(string)
+        }
       },
       toString (...args) {
         return set.toString(...args)

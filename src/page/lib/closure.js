@@ -22,6 +22,7 @@ const closure = (value, relationship) => {
       }
     }
   }
+  return result
 }
 
 module.exports = closure
