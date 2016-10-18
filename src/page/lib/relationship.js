@@ -1,14 +1,20 @@
 'use strict'
 
-const TypedSet = require('./typed-set')
+const TypedSet = require('./typed-set.js')
+const {SPACE_REGEX} = require('./regexes.js')
 const {iterator} = Symbol
 const arrow = ' → '
+
+function subset (parent, substr) {
+  return substr.split(SPACE_REGEX)
+    .every(item => parent.has(item))
+}
 
 class Relationship {
   constructor (universe) {
     const convert = (item) => {
       const {from, to} = item
-      if (universe.has(from) && universe.has(to)) return String(item)
+      if (subset(universe, from) && subset(universe, to)) return String(item)
       throw new Error('Must be in universe')
     }
     const Set = TypedSet(convert)
