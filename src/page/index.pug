@@ -10,14 +10,14 @@ html(xmlns = 'http://www.w3.org/1999/xhtml')
         div.title
           h3 Bảng dữ liệu
         div.universe
-          span Tập hợp U
-          span.empty &lt;trống&gt;
-        div.relationship
-          span Tập hợp F
-          span.empty &lt;trống&gt;
-        div.closure
-          span Tập Bao đóng X<sup>+</sup>
-          span.empty &lt;trống&gt;
+          span.title Tập hợp U
+          div: span.empty &lt;trống&gt;
+        div.relationship.long-list
+          span.title Tập hợp F
+          div: span.empty &lt;trống&gt;
+        div.closure.long-list
+          span.title Tập Bao đóng X<sup>+</sup>
+          div: span.empty &lt;trống&gt;
       div.input-panel
         div.title
           h3 Bảng nhập
@@ -29,9 +29,9 @@ html(xmlns = 'http://www.w3.org/1999/xhtml')
           span.arrow →
           input.to(type = 'text')
           button Thêm vào Tập hợp F
-    div.bottom-panel.horizonal
-      div.control-panel
+    div.bottom-panel
+      div.control-panel.vertical
         div.title
           h3 Bảng điều khiển
-        button.closure
+        div: button.closure
           | Tính tập bao đóng X<sup>+</sup>

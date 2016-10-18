@@ -7,6 +7,10 @@ html, body, .main {
   height: 100%;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: lighter;
+}
+
 .main > div {
   position: fixed;
 }
@@ -19,11 +23,27 @@ html, body, .main {
   display: flex;
 }
 
+span.title {
+  color: #00abcd;
+}
+
 .top-panel {
   top: 0px;
   left: 0px;
   width: 100%;
   height: 80%;
+}
+
+.top-panel > div {
+  width: 50%;
+}
+
+.top-panel input:not(.long-text) {
+  width: 5em;
+}
+
+.top-panel > div > div:not(.title):not(.long-list) {
+  height: 40px;
 }
 
 .bottom-panel {
