@@ -70,6 +70,6 @@ span.title {
   font-weight: lighter;
 }
 
-[hidden] {
+[hidden], .hidden {
   display: none !important;
 }
