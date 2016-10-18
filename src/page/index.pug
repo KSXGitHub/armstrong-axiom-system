@@ -3,10 +3,32 @@ html(xmlns = 'http://www.w3.org/1999/xhtml')
   head
     meta(charset = 'utf-8')
     link(rel = 'stylesheet' href = './style.css')
-  body
-    p
-      h1 Hello, World!!
-    div
-      button#close Close
-    script(type = 'text/javascript')
-      | require('./script.js')
+    title.title Hệ tiên đề Armstrong
+  body: div.main
+    div.top-panel
+      div.output-panel
+        div.title
+          h3 Bảng dữ liệu
+        div.universe
+          span Tập hợp U
+          span.empty &lt;Trống&gt;
+        div.relationship
+          span.empty &lt;Trống&gt;
+        div.closure
+          span.empty &lt;Trống&gt;
+      div.input-panel
+        div.title
+          h3 Bảng nhập
+        div.universe
+          input(type = 'text')
+          button Thêm vào Tập hợp U
+        div.relationship
+          input.from(type = 'text')
+          input.to(type = 'text')
+          button Thêm vào Tập hợp F
+    div.bottom-panel
+      div.control-panel
+        div.title
+          h3 Bảng điều khiển
+        button.closure
+          | Tính tập bao đóng X<sup>+</sup>
