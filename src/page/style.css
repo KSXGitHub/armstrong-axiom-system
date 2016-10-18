@@ -11,6 +11,14 @@ html, body, .main {
   position: fixed;
 }
 
+.vertical {
+  display: block;
+}
+
+.horizonal {
+  display: flex;
+}
+
 .top-panel {
   top: 0px;
   left: 0px;
