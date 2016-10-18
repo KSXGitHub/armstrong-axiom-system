@@ -2,6 +2,7 @@
 
 const Database = require('./lib/database.js')
 const closure = require('./lib/closure.js')
+const {SPACE_REGEX} = require('./lib/regexes.js')
 const {universe, relationship, displayUniverse, displayRelationship} = new Database()
 const {document: {documentElement}, alert} = window
 const outputPanel = documentElement.querySelector('.output-panel')
@@ -24,7 +25,6 @@ const inputRelationshipClearConfirm = inputRelationshipPanel.querySelector('butt
 const inputClosureTextBox = inputClosurePanel.querySelector('input')
 const inputClosureCalculateConfirm = inputClosurePanel.querySelector('button.calc')
 const controlClearAllButton = controlPanel.querySelector('.clear button')
-const SPACE_REGEX = /\x20{1,}/
 const ENTER_KEY = '\n'.charCodeAt()
 
 const tryAlert = fn => () => {
@@ -66,13 +66,13 @@ inputUniverseClearConfirm.addEventListener('click', () => {
 }, false)
 
 inputRelationshipAddConfirm.addEventListener('click', tryAlert(() => {
-  relationship.add(...inputRelationshipTextBox.value.trim().split(SPACE_REGEX))
+  relationship.add(...inputRelationshipTextBox.value.trim().split(', '))
   inputRelationshipTextBox.value = ''
   displayRelationship(outputRelationshipPanel)
 }), false)
 
 inputRelationshipDeleteConfirm.addEventListener('click', tryAlert(() => {
-  relationship.delete(...inputRelationshipTextBox.value.trim().split(SPACE_REGEX))
+  relationship.delete(...inputRelationshipTextBox.value.trim().split(', '))
   inputRelationshipTextBox.value = ''
   displayRelationship(outputRelationshipPanel)
 }), false)
@@ -83,7 +83,7 @@ inputRelationshipClearConfirm.addEventListener('click', () => {
 }, false)
 
 inputClosureCalculateConfirm.addEventListener('click', () => {
-  const result = closure(universe, relationship)
+  const result = closure(inputClosureTextBox.value.trim(), relationship)
   const empty = outputClosurePanel.querySelector('.empty').classList
   const content = outputClosurePanel.querySelector('.content')
   if (result.size) {
