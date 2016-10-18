@@ -13,11 +13,12 @@ const inputUniverseTextBox = inputUniversePanel.querySelector('input')
 const inputUniverseAddConfirm = inputUniversePanel.querySelector('button.add')
 const inputUniverseDeleteConfirm = inputUniversePanel.querySelector('button.delete')
 const inputUniverseClearConfirm = inputUniversePanel.querySelector('button.clear')
-const inputRelationshipFromTextBox = inputRelationshipPanel.querySelector('input.from')
-const inputRelationshipToTextBox = inputRelationshipPanel.querySelector('input.to')
+const inputRelationshipTextBox = inputRelationshipPanel.querySelector('input')
 const inputRelationshipAddConfirm = inputRelationshipPanel.querySelector('button.add')
 const inputRelationshipDeleteConfirm = inputRelationshipPanel.querySelector('button.delete')
 const inputRelationshipClearConfirm = inputRelationshipPanel.querySelector('button.clear')
+const SPACE_REGEX = /\x20{1,}/
+const ENTER_KEY = '\n'.charCodeAt()
 // const controlPanel = bottomPanel.querySelector('.control-panel')
 
 const tryAlert = fn => () => {
@@ -29,13 +30,26 @@ const tryAlert = fn => () => {
   }
 }
 
+const linkTextBoxButton = (textbox, add, del) => {
+  textbox.addEventListener('keydown', ({keyCode, shiftKey}) => {
+    if (keyCode === ENTER_KEY) {
+      (shiftKey ? add : del).click()
+    }
+  }, false)
+}
+
+linkTextBoxButton(inputUniverseTextBox, inputUniverseAddConfirm, inputUniverseDeleteConfirm)
+linkTextBoxButton(inputRelationshipTextBox, inputRelationshipAddConfirm, inputRelationshipDeleteConfirm)
+
 inputUniverseAddConfirm.addEventListener('click', tryAlert(() => {
-  universe.add(inputUniverseTextBox.value)
+  universe.add(...inputUniverseTextBox.value.trim().split(SPACE_REGEX))
+  inputUniverseTextBox.value = ''
   displayUniverse(outputUniversePanel)
 }), false)
 
 inputUniverseDeleteConfirm.addEventListener('click', tryAlert(() => {
-  universe.delete(inputUniverseTextBox.value)
+  universe.delete(...inputUniverseTextBox.value.trim().split(SPACE_REGEX))
+  inputUniverseTextBox.value = ''
   displayUniverse(outputUniversePanel)
 }), false)
 
@@ -45,12 +59,14 @@ inputUniverseClearConfirm.addEventListener('click', () => {
 }, false)
 
 inputRelationshipAddConfirm.addEventListener('click', tryAlert(() => {
-  relationship.add(inputRelationshipFromTextBox.value, inputRelationshipToTextBox.value)
+  relationship.add(...inputRelationshipTextBox.value.trim().split(SPACE_REGEX))
+  inputRelationshipTextBox.value = ''
   displayRelationship(outputRelationshipPanel)
 }), false)
 
 inputRelationshipDeleteConfirm.addEventListener('click', tryAlert(() => {
-  relationship.delete(inputRelationshipFromTextBox.value, inputRelationshipToTextBox.value)
+  relationship.delete(...inputRelationshipTextBox.value.trim().split(SPACE_REGEX))
+  inputRelationshipTextBox.value = ''
   displayRelationship(outputRelationshipPanel)
 }), false)
 

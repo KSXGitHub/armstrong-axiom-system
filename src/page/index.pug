@@ -21,20 +21,20 @@ html(xmlns = 'http://www.w3.org/1999/xhtml')
           span.title Tập Bao đóng X<sup>+</sup>
           div: span.empty &lt;trống&gt;
       div.input-panel
+        mixin cmd(classname, symbol, title)
+          button(class = classname title = title)= symbol
         div.title
           h3 Bảng nhập
         div.universe
-          input(type = 'text')
-          button.add Thêm vào U
-          button.delete Xóa khỏi U
-          button.clear Xóa sạch U
+          input(type = 'text' placeholder = 'Tập hợp U')
+          +cmd('add', '+', 'Thêm vào U')
+          +cmd('delete', '-', 'Loại khỏi U')
+          +cmd('clear', '×', 'Xóa sạch U')
         div.relationship
-          input.from(type = 'text')
-          span.arrow →
-          input.to(type = 'text')
-          button.add Thêm vào F
-          button.delete Xóa khỏi F
-          button.clear Xóa sạch F
+          input(type = 'text' placeholder = 'Tập hợp F')
+          +cmd('add', '+', 'Thêm vào F')
+          +cmd('delete', '-', 'Loại khỏi F')
+          +cmd('clear', '×', 'Xóa sạch F')
     div.bottom-panel
       div.control-panel.vertical
         div.title

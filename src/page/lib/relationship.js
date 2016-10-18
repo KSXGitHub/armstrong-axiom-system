@@ -1,6 +1,7 @@
 'use strict'
 
 const TypedSet = require('./typed-set')
+const {iterator} = Symbol
 const arrow = ' → '
 
 class Relationship {
@@ -13,8 +14,27 @@ class Relationship {
     const Set = TypedSet(convert)
     const set = new Set()
     return {
-      add: (from, to) => set.add(new Element(from, to)),
-      delete: (from, to) => set.delete(new Element(from, to)),
+      add (from, to) {
+        set.add(new Element(from, to))
+        return this
+      },
+      delete (from, to) {
+        set.delete(new Element(from, to))
+        return this
+      },
+      clear () {
+        set.clear()
+        return this
+      },
+      get size () {
+        return set.size
+      },
+      * [iterator] () {
+        yield * set
+      },
+      toString (...args) {
+        return set.toString(...args)
+      },
       __proto__: this
     }
   }
