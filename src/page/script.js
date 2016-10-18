@@ -12,10 +12,12 @@ const inputRelationshipPanel = inputPanel.querySelector('.relationship')
 const inputUniverseTextBox = inputUniversePanel.querySelector('input')
 const inputUniverseAddConfirm = inputUniversePanel.querySelector('button.add')
 const inputUniverseDeleteConfirm = inputUniversePanel.querySelector('button.delete')
+const inputUniverseClearConfirm = inputUniversePanel.querySelector('button.clear')
 const inputRelationshipFromTextBox = inputRelationshipPanel.querySelector('input.from')
 const inputRelationshipToTextBox = inputRelationshipPanel.querySelector('input.to')
 const inputRelationshipAddConfirm = inputRelationshipPanel.querySelector('button.add')
 const inputRelationshipDeleteConfirm = inputRelationshipPanel.querySelector('button.delete')
+const inputRelationshipClearConfirm = inputRelationshipPanel.querySelector('button.clear')
 // const controlPanel = bottomPanel.querySelector('.control-panel')
 
 const tryAlert = fn => () => {
@@ -37,6 +39,11 @@ inputUniverseDeleteConfirm.addEventListener('click', tryAlert(() => {
   displayUniverse(outputUniversePanel)
 }), false)
 
+inputUniverseClearConfirm.addEventListener('click', () => {
+  universe.clear()
+  displayUniverse(outputUniversePanel)
+}, false)
+
 inputRelationshipAddConfirm.addEventListener('click', tryAlert(() => {
   relationship.add(inputRelationshipFromTextBox.value, inputRelationshipToTextBox.value)
   displayRelationship(outputRelationshipPanel)
@@ -46,3 +53,8 @@ inputRelationshipDeleteConfirm.addEventListener('click', tryAlert(() => {
   relationship.delete(inputRelationshipFromTextBox.value, inputRelationshipToTextBox.value)
   displayRelationship(outputRelationshipPanel)
 }), false)
+
+inputRelationshipPanel.addEventListener('click', () => {
+  relationship.clear()
+  displayRelationship(outputRelationshipPanel)
+}, false)
