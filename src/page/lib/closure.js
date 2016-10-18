@@ -4,7 +4,7 @@ const Universe = require('./universe.js')
 const {SPACE_REGEX} = require('./regexes.js')
 
 const closure = (value, relationship) => {
-  const result = new Universe([value])
+  const result = new Universe(value.split(SPACE_REGEX))
   let loop = true
   while (loop) {
     for (const {from, to} of relationship) {
