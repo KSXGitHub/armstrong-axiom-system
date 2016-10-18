@@ -48,6 +48,7 @@ span.title {
 
 .top-panel > div > div:not(.title):not(.long-list) {
   height: 40px;
+  overflow: scroll;
 }
 
 .bottom-panel {
