@@ -25,19 +25,24 @@ html(xmlns = 'http://www.w3.org/1999/xhtml')
           h3 Bảng nhập
         div.universe
           input(type = 'text')
-          button.add Thêm vào Tập hợp U
-          button.delete Xóa khỏi Tập hợp U
+          button.add Thêm vào U
+          button.delete Xóa khỏi U
+          button.clear Xóa sạch U
         div.relationship
           input.from(type = 'text')
           span.arrow →
           input.to(type = 'text')
-          button.add Thêm vào Tập hợp F
-          button.delete Xóa khỏi Tập hợp F
+          button.add Thêm vào F
+          button.delete Xóa khỏi F
+          button.clear Xóa sạch F
     div.bottom-panel
       div.control-panel.vertical
         div.title
           h3 Bảng điều khiển
-        div.closure: button
-          | Tính tập bao đóng X<sup>+</sup>
+        div.button-container.horizonal.equidistant
+          div.closure: button
+            | Tính tập bao đóng X<sup>+</sup>
+          div.clear: button
+            | Xóa toàn bộ
     script(type = 'text/javascript').
       require('./script.js')
