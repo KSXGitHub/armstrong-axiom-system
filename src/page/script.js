@@ -1,14 +1,18 @@
 'use strict'
 
 const Database = require('./lib/database.js')
+const closure = require('./lib/closure.js')
 const {universe, relationship, displayUniverse, displayRelationship} = new Database()
 const {document: {documentElement}, alert} = window
 const outputPanel = documentElement.querySelector('.output-panel')
 const inputPanel = documentElement.querySelector('.input-panel')
+const controlPanel = documentElement.querySelector('.control-panel')
 const outputUniversePanel = outputPanel.querySelector('.universe')
 const outputRelationshipPanel = outputPanel.querySelector('.relationship')
+const outputClosurePanel = outputPanel.querySelector('.closure')
 const inputUniversePanel = inputPanel.querySelector('.universe')
 const inputRelationshipPanel = inputPanel.querySelector('.relationship')
+const inputClosurePanel = inputPanel.querySelector('.closure')
 const inputUniverseTextBox = inputUniversePanel.querySelector('input')
 const inputUniverseAddConfirm = inputUniversePanel.querySelector('button.add')
 const inputUniverseDeleteConfirm = inputUniversePanel.querySelector('button.delete')
@@ -17,9 +21,11 @@ const inputRelationshipTextBox = inputRelationshipPanel.querySelector('input')
 const inputRelationshipAddConfirm = inputRelationshipPanel.querySelector('button.add')
 const inputRelationshipDeleteConfirm = inputRelationshipPanel.querySelector('button.delete')
 const inputRelationshipClearConfirm = inputRelationshipPanel.querySelector('button.clear')
+const inputClosureTextBox = inputClosurePanel.querySelector('input')
+const inputClosureCalculateConfirm = inputClosurePanel.querySelector('button.calc')
+const controlClearAllButton = controlPanel.querySelector('.clear button')
 const SPACE_REGEX = /\x20{1,}/
 const ENTER_KEY = '\n'.charCodeAt()
-// const controlPanel = bottomPanel.querySelector('.control-panel')
 
 const tryAlert = fn => () => {
   try {
@@ -33,13 +39,14 @@ const tryAlert = fn => () => {
 const linkTextBoxButton = (textbox, add, del) => {
   textbox.addEventListener('keydown', ({keyCode, shiftKey}) => {
     if (keyCode === ENTER_KEY) {
-      (shiftKey ? add : del).click()
+      (shiftKey ? del : add).click()
     }
   }, false)
 }
 
 linkTextBoxButton(inputUniverseTextBox, inputUniverseAddConfirm, inputUniverseDeleteConfirm)
 linkTextBoxButton(inputRelationshipTextBox, inputRelationshipAddConfirm, inputRelationshipDeleteConfirm)
+linkTextBoxButton(inputClosureTextBox, inputClosureCalculateConfirm, inputClosureCalculateConfirm)
 
 inputUniverseAddConfirm.addEventListener('click', tryAlert(() => {
   universe.add(...inputUniverseTextBox.value.trim().split(SPACE_REGEX))
@@ -73,4 +80,22 @@ inputRelationshipDeleteConfirm.addEventListener('click', tryAlert(() => {
 inputRelationshipClearConfirm.addEventListener('click', () => {
   relationship.clear()
   displayRelationship(outputRelationshipPanel)
+}, false)
+
+inputClosureCalculateConfirm.addEventListener('click', () => {
+  const result = closure(universe, relationship)
+  const empty = outputClosurePanel.querySelector('.empty').classList
+  const content = outputClosurePanel.querySelector('.content')
+  if (result.size) {
+    empty.add('hidden')
+    content.innerHTML = '<span>' + result + '</span>'
+  } else {
+    empty.remove('hidden')
+    content.textContent = ''
+  }
+}, false)
+
+controlClearAllButton.addEventListener('click', () => {
+  inputUniverseClearConfirm.click()
+  inputRelationshipClearConfirm.click()
 }, false)
