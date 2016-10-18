@@ -25,15 +25,19 @@ html(xmlns = 'http://www.w3.org/1999/xhtml')
           h3 Bảng nhập
         div.universe
           input(type = 'text')
-          button Thêm vào Tập hợp U
+          button.add Thêm vào Tập hợp U
+          button.delete Xóa khỏi Tập hợp U
         div.relationship
           input.from(type = 'text')
           span.arrow →
           input.to(type = 'text')
-          button Thêm vào Tập hợp F
+          button.add Thêm vào Tập hợp F
+          button.delete Xóa khỏi Tập hợp F
     div.bottom-panel
       div.control-panel.vertical
         div.title
           h3 Bảng điều khiển
-        div: button.closure
+        div.closure: button
           | Tính tập bao đóng X<sup>+</sup>
+    script(type = 'text/javascript').
+      require('./script.js')

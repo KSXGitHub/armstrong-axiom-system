@@ -1,4 +1,48 @@
 'use strict'
 
 const Database = require('./lib/database.js')
-const database = new Database()
+const {universe, relationship, displayUniverse, displayRelationship} = new Database()
+const {document: {documentElement}, alert} = window
+const outputPanel = documentElement.querySelector('.output-panel')
+const inputPanel = documentElement.querySelector('.input-panel')
+const outputUniversePanel = outputPanel.querySelector('.universe')
+const outputRelationshipPanel = outputPanel.querySelector('.relationship')
+const inputUniversePanel = inputPanel.querySelector('.universe')
+const inputRelationshipPanel = inputPanel.querySelector('.relationship')
+const inputUniverseTextBox = inputUniversePanel.querySelector('input')
+const inputUniverseAddConfirm = inputUniversePanel.querySelector('button.add')
+const inputUniverseDeleteConfirm = inputUniversePanel.querySelector('button.delete')
+const inputRelationshipFromTextBox = inputRelationshipPanel.querySelector('input.from')
+const inputRelationshipToTextBox = inputRelationshipPanel.querySelector('input.to')
+const inputRelationshipAddConfirm = inputRelationshipPanel.querySelector('button.add')
+const inputRelationshipDeleteConfirm = inputRelationshipPanel.querySelector('button.delete')
+// const controlPanel = bottomPanel.querySelector('.control-panel')
+
+const tryAlert = fn => () => {
+  try {
+    return fn()
+  } catch (error) {
+    console.log(error)
+    setTimeout(alert, 0, error)
+  }
+}
+
+inputUniverseAddConfirm.addEventListener('click', tryAlert(() => {
+  universe.add(inputUniverseTextBox.value)
+  displayUniverse(outputUniversePanel)
+}), false)
+
+inputUniverseDeleteConfirm.addEventListener('click', tryAlert(() => {
+  universe.delete(inputUniverseTextBox.value)
+  displayUniverse(outputUniversePanel)
+}), false)
+
+inputRelationshipAddConfirm.addEventListener('click', tryAlert(() => {
+  relationship.add(inputRelationshipFromTextBox.value, inputRelationshipToTextBox.value)
+  displayRelationship(outputRelationshipPanel)
+}), false)
+
+inputRelationshipDeleteConfirm.addEventListener('click', tryAlert(() => {
+  relationship.delete(inputRelationshipFromTextBox.value, inputRelationshipToTextBox.value)
+  displayRelationship(outputRelationshipPanel)
+}), false)

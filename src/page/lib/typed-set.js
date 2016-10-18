@@ -20,6 +20,9 @@ function create (convert = DONOTHING, base = Set) {
         super.delete(convert(item))
       }
     }
+    toString (begin = '{ ', end = ' }', delimiter = ', ') {
+      return begin + [...this].join(delimiter) + end
+    }
   }
   return TypedSet
 }
