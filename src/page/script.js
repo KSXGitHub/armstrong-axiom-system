@@ -54,7 +54,7 @@ inputRelationshipDeleteConfirm.addEventListener('click', tryAlert(() => {
   displayRelationship(outputRelationshipPanel)
 }), false)
 
-inputRelationshipPanel.addEventListener('click', () => {
+inputRelationshipClearConfirm.addEventListener('click', () => {
   relationship.clear()
   displayRelationship(outputRelationshipPanel)
 }, false)
