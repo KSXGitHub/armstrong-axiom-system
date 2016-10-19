@@ -24,6 +24,7 @@ const inputRelationshipDeleteConfirm = inputRelationshipPanel.querySelector('but
 const inputRelationshipClearConfirm = inputRelationshipPanel.querySelector('button.clear')
 const inputClosureTextBox = inputClosurePanel.querySelector('input')
 const inputClosureCalculateConfirm = inputClosurePanel.querySelector('button.calc')
+const inputClosureClearConfirm = inputClosurePanel.querySelector('button.clear')
 const controlClearAllButton = controlPanel.querySelector('.clear button')
 const CRLF = new Set([...'\r\n'].map(x => x.charCodeAt()))
 
@@ -95,7 +96,16 @@ inputClosureCalculateConfirm.addEventListener('click', () => {
   }
 }, false)
 
+inputClosureClearConfirm.addEventListener('click', () => {
+  outputClosurePanel.querySelector('.content').textContent = ''
+  outputClosurePanel.querySelector('.empty').classList.remove('hidden')
+})
+
 controlClearAllButton.addEventListener('click', () => {
-  inputUniverseClearConfirm.click()
-  inputRelationshipClearConfirm.click()
+  for (const clear of inputPanel.querySelectorAll('button.clear')) {
+    clear.click()
+  }
+  for (const textbox of inputPanel.querySelectorAll('input')) {
+    textbox.value = ''
+  }
 }, false)
