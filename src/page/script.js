@@ -4,7 +4,7 @@ const Database = require('./lib/database.js')
 const closure = require('./lib/closure.js')
 const {SPACE_REGEX, COMMA_REGEX} = require('./lib/regexes.js')
 const {universe, relationship, displayUniverse, displayRelationship} = new Database()
-const {document: {documentElement}, alert} = window
+const {document: {documentElement}, alert, close} = window
 const outputPanel = documentElement.querySelector('.output-panel')
 const inputPanel = documentElement.querySelector('.input-panel')
 const controlPanel = documentElement.querySelector('.control-panel')
@@ -24,8 +24,10 @@ const inputRelationshipDeleteConfirm = inputRelationshipPanel.querySelector('but
 const inputRelationshipClearConfirm = inputRelationshipPanel.querySelector('button.clear')
 const inputClosureTextBox = inputClosurePanel.querySelector('input')
 const inputClosureCalculateConfirm = inputClosurePanel.querySelector('button.calc')
+const inputClosureClearConfirm = inputClosurePanel.querySelector('button.clear')
 const controlClearAllButton = controlPanel.querySelector('.clear button')
-const ENTER_KEY = '\n'.charCodeAt()
+const controlCloseButton = controlPanel.querySelector('.close button')
+const CRLF = new Set([...'\r\n'].map(x => x.charCodeAt()))
 
 const tryAlert = fn => () => {
   try {
@@ -38,7 +40,7 @@ const tryAlert = fn => () => {
 
 const linkTextBoxButton = (textbox, add, del) => {
   textbox.addEventListener('keydown', ({keyCode, shiftKey}) => {
-    if (keyCode === ENTER_KEY) {
+    if (CRLF.has(keyCode)) {
       (shiftKey ? del : add).click()
     }
   }, false)
@@ -95,7 +97,18 @@ inputClosureCalculateConfirm.addEventListener('click', () => {
   }
 }, false)
 
+inputClosureClearConfirm.addEventListener('click', () => {
+  outputClosurePanel.querySelector('.content').textContent = ''
+  outputClosurePanel.querySelector('.empty').classList.remove('hidden')
+})
+
 controlClearAllButton.addEventListener('click', () => {
-  inputUniverseClearConfirm.click()
-  inputRelationshipClearConfirm.click()
+  for (const clear of inputPanel.querySelectorAll('button.clear')) {
+    clear.click()
+  }
+  for (const textbox of inputPanel.querySelectorAll('input')) {
+    textbox.value = ''
+  }
 }, false)
+
+controlCloseButton.addEventListener('click', close, false)

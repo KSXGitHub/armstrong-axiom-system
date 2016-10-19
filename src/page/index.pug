@@ -45,6 +45,7 @@ html(xmlns = 'http://www.w3.org/1999/xhtml')
         div.closure
           +textbox('Tập hợp X')
           button.calc Tính X<sup>+</sup>
+          +command('clear', '×', 'Xóa sạch X+')
     div.bottom-panel
       div.control-panel.vertical
         div.title
@@ -52,5 +53,7 @@ html(xmlns = 'http://www.w3.org/1999/xhtml')
         div.button-container.horizonal.equidistant
           div.clear: button
             | Xóa toàn bộ
+          div.close: button
+            | Thoát
     script(type = 'text/javascript').
       require('./script.js')
