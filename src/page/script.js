@@ -26,6 +26,7 @@ const inputClosureTextBox = inputClosurePanel.querySelector('input')
 const inputClosureCalculateConfirm = inputClosurePanel.querySelector('button.calc')
 const controlClearAllButton = controlPanel.querySelector('.clear button')
 const ENTER_KEY = '\n'.charCodeAt()
+const click = element => setTimeout(() => element.click())
 
 const tryAlert = fn => () => {
   try {
@@ -39,7 +40,7 @@ const tryAlert = fn => () => {
 const linkTextBoxButton = (textbox, add, del) => {
   textbox.addEventListener('keydown', ({keyCode, shiftKey}) => {
     if (keyCode === ENTER_KEY) {
-      (shiftKey ? del : add).click()
+      click(shiftKey ? del : add)
     }
   }, false)
 }
@@ -96,6 +97,6 @@ inputClosureCalculateConfirm.addEventListener('click', () => {
 }, false)
 
 controlClearAllButton.addEventListener('click', () => {
-  inputUniverseClearConfirm.click()
-  inputRelationshipClearConfirm.click()
+  click(inputUniverseClearConfirm)
+  click(inputRelationshipClearConfirm)
 }, false)
