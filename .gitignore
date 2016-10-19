@@ -5,14 +5,15 @@
 .out.*
 out
 out.*
-quick-test
-quick-test.*
+local-test
+local-test.*
 tmp
 temp
 tmp.*
 temp.*
 *.tmp
 *.temp
+/app
 
 # Logs
 logs

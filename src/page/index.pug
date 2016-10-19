@@ -1,0 +1,56 @@
+doctype xml
+html(xmlns = 'http://www.w3.org/1999/xhtml')
+  head
+    meta(charset = 'utf-8')
+    link(rel = 'stylesheet' href = './style.css')
+    title.title Hệ tiên đề Armstrong
+  body: div.main.vertical
+    div.top-panel.horizonal
+      div.output-panel
+        mixin empty
+          div: span.empty &lt;trống&gt;
+        mixin content
+          div: span.content
+        div.title
+          h3 Bảng dữ liệu
+        div.universe
+          span.title Tập hợp U
+          +empty
+          +content
+        div.relationship
+          span.title Tập hợp F
+          +empty
+          +content
+        div.closure
+          span.title Tập Bao đóng X<sup>+</sup>
+          +empty
+          +content
+      div.input-panel
+        mixin textbox(placeholder)
+          input(type = 'text' placeholder = placeholder)
+        mixin command(classname, symbol, title)
+          button(class = classname title = title)= symbol
+        div.title
+          h3 Bảng nhập
+        div.universe
+          +textbox('Tập hợp U')
+          +command('add', '+', 'Thêm vào U')
+          +command('delete', '-', 'Loại khỏi U')
+          +command('clear', '×', 'Xóa sạch U')
+        div.relationship
+          +textbox('Tập hợp F')
+          +command('add', '+', 'Thêm vào F')
+          +command('delete', '-', 'Loại khỏi F')
+          +command('clear', '×', 'Xóa sạch F')
+        div.closure
+          +textbox('Tập hợp X')
+          button.calc Tính X<sup>+</sup>
+    div.bottom-panel
+      div.control-panel.vertical
+        div.title
+          h3 Bảng điều khiển
+        div.button-container.horizonal.equidistant
+          div.clear: button
+            | Xóa toàn bộ
+    script(type = 'text/javascript').
+      require('./script.js')
