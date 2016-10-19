@@ -43,12 +43,12 @@ span.title {
 }
 
 .top-panel input:not(.long-text) {
-  width: 5em;
+  width: 10em;
 }
 
 .top-panel > div > div:not(.title):not(.long-list) {
-  height: 40px;
-  overflow: scroll;
+  height: 64px;
+  overflow: auto;
 }
 
 .bottom-panel {

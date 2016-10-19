@@ -3,23 +3,18 @@
 const Universe = require('./universe.js')
 const {SPACE_REGEX} = require('./regexes.js')
 
-const closure = (value, relationship) => {
-  const result = new Universe(value.split(SPACE_REGEX))
-  let loop = true
-  while (loop) {
-    for (const {from, to} of relationship) {
-      let subset = true
-      for (const item of from.trim().split(SPACE_REGEX)) {
-        if (!result.has(item)) {
-          subset = false
-          break
-        }
-      }
-      if (subset) {
-        result.add(...to.trim().split(SPACE_REGEX))
-      } else {
-        loop = false
-      }
+const closure = (value, relationship) =>
+  __closure(value.trim().split(SPACE_REGEX), relationship)
+
+const __closure = ([...iterable], [...relationship]) => {
+  const result = new Universe(iterable)
+  for (const from of iterable) {
+    const xfrom = new Set(from.trim().split(SPACE_REGEX))
+    const xrel = relationship
+      .find(({from}) => xfrom.has(from))
+    if (xrel) {
+      result.add(xrel.to.trim().split(SPACE_REGEX))
+      return __closure(result, relationship.filter(x => x !== xrel))
     }
   }
   return result
