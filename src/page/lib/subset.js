@@ -1,4 +1,4 @@
 'use strict'
-const subset = (container, iterable) =>
+const subset = (iterable, container) =>
   [...iterable].every(item => container.has(item))
 module.exports = subset
